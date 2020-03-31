@@ -1,0 +1,25 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+bases:
+  - ../../../config/{{ .name }}/
+resources:
+{{- range $resource := .resources}}
+  - {{$resource}}
+{{- end}}
+
+namespace: {{ .namespace }}
+commonLabels:
+  app: {{ .name }}
+commonAnnotations:
+  gimlet.laszlo.cloud/repository: {{ .repository }}
+  gimlet.laszlo.cloud/git-hash: {{ .sha }}
+
+images:
+  - name: dummy-image
+    newName: {{ .image }}
+    newTag: "{{ .tag }}"
+
+patchesStrategicMerge:
+{{- range $patch := .patches}}
+  - {{$patch}}
+{{- end}}

@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .name }}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/whitelist-source-range: "2a02:ab8d:243:4f80::/64, 2a02:ab88:59c6:5780::/64, 176.63.20.0/22"
+spec:
+  rules:
+    - host: {{ .ingress.subdomain }}.test.laszlo.cloud
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: {{ .name }}
+              servicePort: {{ .containerPort }}

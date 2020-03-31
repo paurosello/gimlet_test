@@ -1,0 +1,179 @@
+questions:
+- variable: name
+  label: Name
+  description: The name of your application
+  required: true
+  default: null
+  type: string
+  options: []
+  group: basic
+  patch: ""
+  resource: ""
+  subquestions: []
+- variable: namespace
+  label: Namespace
+  description: The namespace to put your application in
+  required: true
+  default: null
+  type: string
+  options: []
+  group: basic
+  patch: ""
+  resource: ""
+  subquestions: []
+- variable: image
+  label: Image name
+  description: The image to deploy
+  required: true
+  default: null
+  type: string
+  options: []
+  group: basic
+  patch: ""
+  resource: ""
+  subquestions: []
+- variable: tag
+  label: Image tag
+  description: The image tag to apply on release. Supports bash string manipulations
+  required: true
+  default: ${COMMIT_SHA:0:8}
+  type: string
+  options: []
+  group: basic
+  patch: ""
+  resource: ""
+  subquestions: []
+- variable: containerPort
+  label: Container Port
+  description: The port your application is listening on
+  required: false
+  default: null
+  type: string
+  options: []
+  group: misc
+  patch: containerPort.yaml
+  resource: ""
+  subquestions: []
+- variable: ingress
+  label: Ingress
+  description: Exposes the application on a public URL, behind a firewall
+  required: false
+  default: null
+  type: complex
+  options: []
+  group: networking
+  patch: ""
+  resource: ingress.yaml
+  subquestions:
+  - variable: subdomain
+    label: Subdomain
+    description: Specifies the subdomain your app is going to be exposed on <<subdomain>>.test.laszlo.cloud
+    required: false
+    default: null
+    type: string
+    options: []
+    group: ""
+    patch: ""
+    resource: ""
+    subquestions: []
+- variable: requests
+  label: Resource Requests
+  description: ""
+  required: false
+  default: null
+  type: complex
+  options: []
+  group: resources
+  patch: resourceRequests.yaml
+  resource: ""
+  subquestions:
+  - variable: cpu
+    label: CPU
+    description: ""
+    required: false
+    default: null
+    type: string
+    options: []
+    group: ""
+    patch: ""
+    resource: ""
+    subquestions: []
+  - variable: memory
+    label: Memory
+    description: ""
+    required: false
+    default: null
+    type: string
+    options: []
+    group: ""
+    patch: ""
+    resource: ""
+    subquestions: []
+- variable: limits
+  label: Resource Limits
+  description: ""
+  required: false
+  default: null
+  type: complex
+  options: []
+  group: resources
+  patch: resourceLimits.yaml
+  resource: ""
+  subquestions:
+  - variable: cpu
+    label: CPU
+    description: ""
+    required: false
+    default: null
+    type: string
+    options: []
+    group: ""
+    patch: ""
+    resource: ""
+    subquestions: []
+  - variable: memory
+    label: Memory
+    description: ""
+    required: false
+    default: null
+    type: string
+    options: []
+    group: ""
+    patch: ""
+    resource: ""
+    subquestions: []
+- variable: vars
+  label: Environment Variables
+  description: ""
+  required: false
+  default: null
+  type: map
+  options: []
+  group: basic
+  patch: envVars.yaml
+  resource: ""
+  subquestions: []
+- variable: prometheusScraping
+  label: Prometheus scraping
+  description: Enables Prometheus scraping by adding the prometheus.io/scrape annotation
+    on the pod
+  required: false
+  default: false
+  type: bool
+  options: []
+  group: montitoring
+  patch: prometheus-scrape-patch.yaml
+  resource: ""
+  subquestions: []
+- variable: alwaysPullImages
+  label: Always pull images
+  description: If checked every deploy or restart will check the registry if it has
+    a different image sha of the set image tag
+  required: false
+  default: false
+  type: bool
+  options: []
+  group: misc
+  patch: image-pull-policy-patch.yaml
+  resource: ""
+  subquestions: []
